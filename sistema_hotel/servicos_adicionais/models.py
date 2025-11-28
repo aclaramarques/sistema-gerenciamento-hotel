@@ -6,4 +6,4 @@ class Servicos_adicionais(models.Model):
     valor = models.DecimalField(max_digits=8, decimal_places=2)
 
     def __str__(self):
-        return self.valor
+        return f"{self.tipo} (R$ {self.valor})"

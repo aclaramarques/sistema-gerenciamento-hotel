@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Hospede
 from .forms import HospedeForm
 from django.contrib.auth.decorators import login_required
+from rest_framework import generics
+from .serializers import HospedeSerializer, HospedeCreateUpdateSerializer
 
 @login_required
 def listar_hospedes(request):
@@ -33,3 +35,21 @@ def deletar_hospede(request, cpf):
     hospede = get_object_or_404(Hospede, cpf=cpf)
     hospede.delete()
     return redirect('listar_hospedes')
+
+
+class HospedeListCreateView(generics.ListCreateAPIView):
+    queryset = Hospede.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return HospedeCreateUpdateSerializer
+        return HospedeSerializer
+
+class HospedeRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Hospede.objects.all()
+    lookup_field = 'cpf'   
+
+    def get_serializer_class(self):
+        if self.request.method in ('PUT', 'PATCH'):
+            return HospedeCreateUpdateSerializer
+        return HospedeSerializer

@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ServicosForm
 from .models import Servicos_adicionais
+from rest_framework import generics
+from .serializers import ServicosAdicionaisCreateUpdateSerializer, ServicosAdicionaisSerializer
 
 def criar_servico(request):
     if request.method == 'POST':
@@ -32,3 +34,25 @@ def deletar_servico(request, id):
 def listar_servicos(request):
     servico = Servicos_adicionais.objects.all()
     return render(request, 'servicos_adicionais/listar_servicos_adicionais.html', {'servicos_adicionais': servico})
+
+
+class ServicosAdicionaisListCreateView(generics.ListCreateAPIView):
+    queryset = Servicos_adicionais.objects.all()
+    serializer_class = ServicosAdicionaisCreateUpdateSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return ServicosAdicionaisSerializer
+        return ServicosAdicionaisCreateUpdateSerializer
+
+
+class ServicosAdicionaisRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Servicos_adicionais.objects.all()
+    serializer_class = ServicosAdicionaisCreateUpdateSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return ServicosAdicionaisSerializer
+        return ServicosAdicionaisCreateUpdateSerializer
+
+    lookup_field = 'id'
