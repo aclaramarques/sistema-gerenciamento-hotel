@@ -4,6 +4,7 @@ from .forms import QuartoForm
 from django.contrib.auth.decorators import login_required
 from rest_framework import generics
 from .serializers import QuartoSerializer
+from rest_framework.permissions import IsAuthenticated
 
 @login_required
 def listar_quartos(request):
@@ -37,8 +38,10 @@ def deletar_quarto(request, numero):
 class QuartoListAPIView (generics.ListCreateAPIView):
     queryset = Quarto.objects.all()
     serializer_class = QuartoSerializer
+    permission_classes = [IsAuthenticated]
 
 class QuartoDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Quarto.objects.all()
     serializer_class = QuartoSerializer
     lookup_field = 'numero'
+    permission_classes = [IsAuthenticated]

@@ -6,6 +6,7 @@ from .models import Reserva
 from django.contrib.auth.decorators import login_required
 from rest_framework import generics
 from .serializers import ReservaSerializer, ReservaCreateSerializer
+from rest_framework.permissions import IsAuthenticated
 
 @login_required
 def listar_reservas(request):
@@ -48,6 +49,7 @@ def cadastrar_reserva(request):
 
 
 class ReservaListCreateView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Reserva.objects.all()
 
     def get_serializer_class(self):
@@ -60,3 +62,4 @@ class ReservaListCreateView(generics.ListCreateAPIView):
 class ReservaDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Reserva.objects.all()
     serializer_class = ReservaSerializer
+    permission_classes = [IsAuthenticated]

@@ -3,6 +3,7 @@ from .forms import ServicosForm
 from .models import Servicos_adicionais
 from rest_framework import generics
 from .serializers import ServicosAdicionaisCreateUpdateSerializer, ServicosAdicionaisSerializer
+from rest_framework.permissions import IsAuthenticated
 
 def criar_servico(request):
     if request.method == 'POST':
@@ -37,6 +38,7 @@ def listar_servicos(request):
 
 
 class ServicosAdicionaisListCreateView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Servicos_adicionais.objects.all()
     serializer_class = ServicosAdicionaisCreateUpdateSerializer
 
@@ -47,6 +49,7 @@ class ServicosAdicionaisListCreateView(generics.ListCreateAPIView):
 
 
 class ServicosAdicionaisRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Servicos_adicionais.objects.all()
     serializer_class = ServicosAdicionaisCreateUpdateSerializer
 

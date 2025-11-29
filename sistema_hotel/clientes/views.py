@@ -3,7 +3,11 @@ from .models import Hospede
 from .forms import HospedeForm
 from django.contrib.auth.decorators import login_required
 from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 from .serializers import HospedeSerializer, HospedeCreateUpdateSerializer
+from rest_framework.permissions import IsAuthenticated
 
 @login_required
 def listar_hospedes(request):
@@ -53,3 +57,19 @@ class HospedeRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
         if self.request.method in ('PUT', 'PATCH'):
             return HospedeCreateUpdateSerializer
         return HospedeSerializer
+
+class HospedeListCreateView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        hospedes = Hospede.objects.all()
+        serializer = HospedeSerializer(hospedes, many=True)
+        return success_response("Lista de hóspedes carregada.", serializer.data)
+
+    def post(self, request):
+
+        serializer = HospedeCreateUpdateSerializer(data=request.data)
+        if serializer.is_valid():
+            hospede = serializer.save()
+            return success_response("Hóspede criado com sucesso.", HospedeSerializer(hospede).data, status=201)
+        return error_response("Erro ao criar hóspede.", serializer.errors)
