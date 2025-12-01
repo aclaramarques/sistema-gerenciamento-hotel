@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+
+  <h1 class="h3 mb-4 text-gray-800">Lista de Quartos</h1>
+
+  <a href="{% url 'cadastrar_quarto' %}" class="btn btn-primary mb-3">Novo Quarto</a>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Número</th>
+        <th>Tipo</th>
+        <th>Capacidade</th>
+        <th>Preço Diária (R$)</th>
+        <th>Disponibilidade</th>
+        <th>Avaliação</th>
+        <th>Serviços</th>
+        <th>Descrição</th>
+        <th>Imagem</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for quarto in quartos %}
+      <tr>
+        <td>{{ quarto.numero }}</td>
+        <td>{{ quarto.tipo }}</td>
+        <td>{{ quarto.capacidade }}</td>
+        <td>{{ quarto.preco_diaria }}</td>
+        <td>
+          {% if quarto.disponibilidade %}
+            <span class="text-success">Disponível</span>
+          {% else %}
+            <span class="text-danger">Indisponível</span>
+          {% endif %}
+        </td>
+        <td>{{ quarto.avaliacao }} ⭐</td>
+        <td>
+          {% for servico in quarto.servicos_adicionais.all %}
+            <span class="badge bg-info text-dark">{{ servico.tipo }}</span>
+          {% empty %}
+            Nenhum
+          {% endfor %}
+
+        </td>
+        <td>{{ quarto.descricao_detalhada|truncatewords:15 }}</td>
+        <td>
+          {% if quarto.imagens %}
+            <img src="{{ quarto.imagens.url }}" alt="Quarto {{ quarto.numero }}">
+          {% else %}
+            -
+          {% endif %}
+        </td>
+        <td>
+          <a href="{% url 'editar_quarto' quarto.numero %}" class="btn btn-warning btn-sm">Editar</a>
+          <a href="{% url 'deletar_quarto' quarto.numero %}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este quarto?')">Excluir</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="10">Nenhum quarto cadastrado.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+{% endblock %}

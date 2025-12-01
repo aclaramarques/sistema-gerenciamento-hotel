@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Ambiente virtual
+venv/
+
+# Banco de dados SQLite
+db.sqlite3
+
+# Django
+*.log
+staticfiles/
+media/
+
+# VSCode
+.vscode/
+__pycache__/
+*.pyc
+__pycache__/
+*.pyc
+firebase_credentials.json
