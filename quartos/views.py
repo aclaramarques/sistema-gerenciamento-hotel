@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework import generics
 from .serializers import QuartoSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from reservas.utils import verificar_reservas_vencidas
 
 @login_required
 def listar_quartos(request):
@@ -45,3 +46,9 @@ class QuartoDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = QuartoSerializer
     lookup_field = 'numero'
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        # Antes de pegar os quartos, verifica se tem algo vencido
+        verificar_reservas_vencidas()
+        
+        return Quarto.objects.all()
