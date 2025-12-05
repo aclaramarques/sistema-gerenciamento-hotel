@@ -28,11 +28,11 @@ urlpatterns = [
     path('', include('servicos_adicionais.urls')),
     path('', include('funcionarios.urls')),
     path('', include('clientes.urls')),
-    path('', include('quartos.urls')),  # Já contém 'api/quartos/'
-    path('', include('reservas.urls')), # Já contém 'api/reservas/'
+    path('', include('quartos.urls')),  
+    path('', include('reservas.urls')), 
     path('', include('core.urls')),
 
-    # Autenticação JWT (Login do App)
+    
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),    
 ]
