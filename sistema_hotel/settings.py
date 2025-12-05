@@ -60,8 +60,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 
-CORS_ARROW_ALL_ORIGINS = True
-
 ROOT_URLCONF = 'sistema_hotel.urls'
 
 TEMPLATES = [
