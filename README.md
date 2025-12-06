@@ -1,0 +1,13 @@
+## 🏨 Sistema de Gerenciamento de Hotel
+
+> O **sistema de gerenciamento de hotel** serve para melhorar a gestão e o controle sobre quartos, reservas e serviços do hotel. Ele possui uma integração com uma aplicação mobile, que é voltada especificamente para os clientes, enquanto a parte web é para uso dos administradores e funcionários, nele podem ser realizadas as seguintes ações:
+> - Cadastrar, ver, atualizar e deletar: quartos, hóspedes, reservas e serviços.
+
+### 👥 Equipe
+
+* **Ana Clara Almeida Marques**
+* **Andson de Queiroz Domingues**
+* **Paulo José Pereira Trindade**
+
+## 🎥 Vídeo Explicativo
+🔗 https://drive.google.com/file/d/1H5AKgSXdZShw7IbLCH12QWZxhTfAJNNf/view?usp=classroom_web&authuser=1
