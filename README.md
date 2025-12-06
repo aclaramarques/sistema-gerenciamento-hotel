@@ -9,5 +9,9 @@
 * **Andson de Queiroz Domingues**
 * **Paulo José Pereira Trindade**
 
+## Instruções de uso
+* Clonar o projeto;
+* Criar um superuser e senha;
+
 ## 🎥 Vídeo Explicativo
 🔗 https://drive.google.com/file/d/1H5AKgSXdZShw7IbLCH12QWZxhTfAJNNf/view?usp=classroom_web&authuser=1
